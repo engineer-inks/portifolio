@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutoriais Matemáticos | Machine Learning Engineer</title>
+  <link rel="stylesheet" href="css/style.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <nav>
+        <a href="index.html" class="logo">&lt;Dev/Data&gt;</a>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="projetos.html">Projetos</a></li>
+          <li><a href="tutoriais.html" class="active">Tutoriais</a></li>
+          <li><a href="sobre.html">Sobre Mim</a></li>
+          <li><a href="contato.html">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" style="padding: 60px 20px;">
+    <h1 style="font-size: 2.2rem; margin-bottom: 10px;">Fundamentos Matemáticos</h1>
+    <p style="color: var(--text-secondary); margin-bottom: 40px; max-width: 800px;">
+      Documentação teórica e conceitos estatísticos aplicados à modelagem de risco de crédito e geração de dados sintéticos.
+    </p>
+
+    <article class="card" style="margin-bottom: 30px; padding: 28px;">
+      <h2 style="color: var(--accent-color); font-size: 1.4rem; margin-bottom: 12px;">1. Teorema de Sklar (1959)</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 15px;">
+        O Teorema de Sklar estabelece que qualquer função de distribuição acumulada conjunta multivariada $H$ pode ser expressa em termos de suas distribuições marginais $F_i$ e de uma função cópula $C$:
+      </p>
+      <div style="background-color: rgba(15, 23, 42, 0.8); padding: 15px; border-radius: 6px; border: 1px solid var(--border-color); text-align: center; font-size: 1.1rem; margin-bottom: 15px;">
+        $$H(x_1, \dots, x_d) = C(F_1(x_1), \dots, F_d(x_d))$$
+      </div>
+      <p style="color: var(--text-secondary); font-size: 0.95rem;">
+        <strong>Aplicação em Risco:</strong> Permite isolar a modelagem individual das variáveis (ex: Renda com distribuição Log-Normal e Score com distribuição Beta) da estrutura de dependência entre elas.
+      </p>
+    </article>
+
+    <article class="card" style="margin-bottom: 30px; padding: 28px;">
+      <h2 style="color: var(--accent-color); font-size: 1.4rem; margin-bottom: 12px;">2. Cópula Gaussiana</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 15px;">
+        A Cópula Gaussiana utiliza a distribuição normal multivariada para mapear e injetar estruturas de correlação linear (Matriz de Pearson $R$) em variáveis de distribuições arbitrárias:
+      </p>
+      <div style="background-color: rgba(15, 23, 42, 0.8); padding: 15px; border-radius: 6px; border: 1px solid var(--border-color); text-align: center; font-size: 1.1rem; margin-bottom: 15px;">
+        $$C_R(u_1, \dots, u_d) = \Phi_R(\Phi^{-1}(u_1), \dots, \Phi^{-1}(u_d))$$
+      </div>
+      <p style="color: var(--text-secondary); font-size: 0.95rem;">
+        Onde $\Phi^{-1}$ é a inversa da CDF normal padrão e $\Phi_R$ é a distribuição normal multivariada conjunta com matriz de correlação $R$.
+      </p>
+    </article>
+
+    <article class="card" style="margin-bottom: 30px; padding: 28px;">
+      <h2 style="color: var(--accent-color); font-size: 1.4rem; margin-bottom: 12px;">3. Algoritmo de Monte Carlo via Decomposição de Cholesky</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 15px;">
+        Etapas para a amostragem de dados sintéticos correlacionados:
+      </p>
+      <ol style="color: var(--text-secondary); font-size: 0.95rem; padding-left: 20px; line-height: 1.8;">
+        <li>Geração de vetor aleatório independente: $\epsilon \sim \mathcal{N}(0, I)$.</li>
+        <li>Fatoração da matriz de correlação $R = L \cdot L^T$ via Decomposição de Cholesky.</li>
+        <li>Injeção de dependência: $Z = L \cdot \epsilon$.</li>
+        <li>Transformação para o espaço uniforme $U_i = \Phi(Z_i)$ e aplicação da transformada inversa $X_i = F_i^{-1}(U_i)$.</li>
+      </ol>
+    </article>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 • Desenvolvido com foco em Engenharia e Ciência de Dados.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
