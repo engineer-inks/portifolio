@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Showcase Executivo | Eneas Junior</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+  <style>
+    /* Estilo dos Cards em formato de Slides Executivos */
+    .slide-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 40px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .slide-tag {
+      display: inline-block;
+      background-color: rgba(56, 189, 248, 0.1);
+      color: var(--accent-color);
+      border: 1px solid var(--accent-color);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 20px;
+    }
+    .formula-box {
+      background-color: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--accent-color);
+      padding: 20px;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 1.2rem;
+      margin: 15px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <nav>
+        <a href="index.html" class="logo">Eneas Junior</a>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="projetos.html">Projetos</a></li>
+          <li><a href="showcase.html" class="active">Showcase</a></li>
+          <li><a href="tutoriais.html">Tutoriais</a></li>
+          <li><a href="sobre.html">Sobre Mim</a></li>
+          <li><a href="contato.html">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" style="padding: 60px 20px;">
+    
+    <div style="text-align: center; margin-bottom: 50px;">
+      <h1 style="font-size: 2.5rem; margin-bottom: 15px;">Apresentação Executiva & Técnica</h1>
+      <p style="color: var(--text-secondary); max-width: 800px; margin: 0 auto; font-size: 1.1rem;">
+        Pitch deck técnico detalhando a arquitetura matemática, simulação de risco e resultados do Motor de Crédito IFRS9 e IA Conversacional.
+      </p>
+    </div>
+
+    <div class="slide-card">
+      <span class="slide-tag">Slide 01 • Visão Geral</span>
+      <h2 style="color: var(--accent-color); margin-bottom: 15px;">Motor de Risco IFRS9 & Dados Sintéticos</h2>
+      <div class="grid-2">
+        <div style="background-color: rgba(15, 23, 42, 0.6); padding: 20px; border-radius: 8px;">
+          <h3 style="color: #f8fafc; margin-bottom: 10px;">O Desafio de Negócio</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem;">
+            Treinar e validar modelos regulatórios de risco de crédito (PD, LGD, EAD) demanda volumes massivos de dados históricos. No entanto, restrições da LGPD e a escassez de dados de default limitam a inovação e o benchmarking interno.
+          </p>
+        </div>
+        <div style="background-color: rgba(15, 23, 42, 0.6); padding: 20px; border-radius: 8px;">
+          <h3 style="color: #f8fafc; margin-bottom: 10px;">A Solução Arquitetada</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem;">
+            Um gerador de dados sintéticos de alta fidelidade que combina o Teorema de Sklar, Cópulas Gaussianas e Simulação de Monte Carlo para espelhar correlações reais e distribuições não-lineares.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-card">
+      <span class="slide-tag">Slide 02 • Fundamento Financeiro</span>
+      <h2 style="color: var(--accent-color); margin-bottom: 15px;">Métrica Central: Perda Esperada (Expected Loss)</h2>
+      <p style="color: var(--text-secondary);">
+        A modelagem atende rigorosamente à equação de provisão de risco bancário sob o arcabouço IFRS9:
+      </p>
+      <div class="formula-box">
+        $$EL = PD \times LGD \times EAD$$
+      </div>
+      <div class="grid-2" style="font-size: 0.95rem; color: var(--text-secondary);">
+        <div><strong>PD (Probability of Default):</strong> Probabilidade de o cliente honrar ou não os pagamentos.</div>
+        <div><strong>LGD (Loss Given Default):</strong> Percentual de perda no momento do calote.</div>
+        <div><strong>EAD (Exposure at Default):</strong> Saldo devedor total exposto no evento do default.</div>
+      </div>
+    </div>
+
+    <div class="slide-card">
+      <span class="slide-tag">Slide 03 • Núcleo Estatístico</span>
+      <h2 style="color: var(--accent-color); margin-bottom: 15px;">Teorema de Sklar & Cópulas Gaussianas</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 10px;">
+        Desacoplamos as distribuições marginais (Renda via Log-Normal, Score via Beta) da estrutura de dependência conjunta $C$:
+      </p>
+      <div class="formula-box">
+        $$H(x_1, \dots, x_d) = C(F_1(x_1), \dots, F_d(x_d))$$
+      </div>
+      <div class="formula-box" style="margin-top: 10px;">
+        $$C_R(u_1, \dots, u_d) = \Phi_R(\Phi^{-1}(u_1), \dots, \Phi^{-1}(u_d))$$
+      </div>
+    </div>
+
+    <div class="slide-card">
+      <span class="slide-tag">Slide 04 • Algoritmo de Amostragem</span>
+      <h2 style="color: var(--accent-color); margin-bottom: 20px;">Pipeline de Geração de Monte Carlo</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+        <div style="background-color: rgba(15, 23, 42, 0.6); padding: 15px; border-radius: 6px; text-align: center;">
+          <h4 style="color: var(--accent-color); margin-bottom: 5px;">1. Amostragem</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary);">Geração de vetor aleatório $\epsilon \sim \mathcal{N}(0, I)$</p>
+        </div>
+        <div style="background-color: rgba(15, 23, 42, 0.6); padding: 15px; border-radius: 6px; text-align: center;">
+          <h4 style="color: var(--accent-color); margin-bottom: 5px;">2. Cholesky</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary);">Injeção de correlação: $Z = L \cdot \epsilon$</p>
+        </div>
+        <div style="background-color: rgba(15, 23, 42, 0.6); padding: 15px; border-radius: 6px; text-align: center;">
+          <h4 style="color: var(--accent-color); margin-bottom: 5px;">3. Inversão</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary);">Mapeamento real: $X_i = F_i^{-1}(\Phi(Z_i))$</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 • Desenvolvido por Eneas Junior.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
