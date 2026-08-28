@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mathematical Tutorials | Eneas Junior</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+  <style>
+    .tutorial-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 35px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    .tutorial-card h2 {
+      color: var(--accent-color);
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+    }
+    .tutorial-card h3 {
+      color: var(--text-primary);
+      font-size: 1.2rem;
+      margin: 20px 0 10px 0;
+    }
+    .formula-display {
+      background-color: #0f172a;
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--accent-color);
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1.2rem;
+      margin: 20px 0;
+      color: #38bdf8;
+      overflow-x: auto;
+    }
+    .highlight-box {
+      background-color: rgba(56, 189, 248, 0.05);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    pre[class*="language-"] {
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      margin: 20px 0;
+      background: #0f172a !important;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <nav>
+        <a href="index.html" class="logo">Eneas Junior</a>
+        <ul class="nav-links">
+          <li><a href="home-en.html">Home</a></li>
+          <li><a href="projetos-en.html">Projects</a></li>
+          <li><a href="showcase-en.html">Showcase</a></li>
+          <li><a href="tutoriais-en.html" class="active">Tutorials</a></li>
+          <li><a href="sobre-en.html">About Me</a></li>
+          <li><a href="contato-en.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" style="padding: 60px 20px;">
+    
+    <div style="margin-bottom: 50px;">
+      <h1 style="font-size: 2.3rem; margin-bottom: 10px;">Mathematical & Statistical Tutorials</h1>
+      <p style="color: var(--text-secondary); max-width: 850px; font-size: 1.1rem; line-height: 1.7;">
+        Detailed theoretical foundation and practical guide on synthetic data engineering, copula theory, and Monte Carlo sampling applied to Credit Risk (IFRS 9).
+      </p>
+    </div>
+
+    <article class="tutorial-card">
+      <h2>1. Sklar's Theorem (1959) and Marginal Decomposition</h2>
+      
+      <h3>The Challenge in Financial Data</h3>
+      <p style="color: var(--text-secondary); line-height: 1.8;">
+        In traditional banking modeling, we encounter variables that follow completely heterogeneous distribution families. <strong>Income</strong> has a heavy right tail (modeled by a Log-Normal or Pareto distribution), the <strong>Credit Score</strong> is bounded between limits (modeled by a Beta or Truncated Normal distribution), and the <strong>Limit Utilization Rate</strong> concentrates near the extremes.
+      </p>
+      <p style="color: var(--text-secondary); line-height: 1.8; margin-top: 10px;">
+        Attempting to model this mass of data using a standard Multivariate Normal distribution fails severely, as it distorts the individual asymmetries of the variables. This is exactly where <strong>Sklar's Theorem</strong> comes in.
+      </p>
+
+      <h3>Mathematical Formulation</h3>
+      <p style="color: var(--text-secondary); line-height: 1.8;">
+        Proposed by Abe Sklar in 1959, the theorem states that any multivariate joint Cumulative Distribution Function (CDF) $H(x_1, \dots, x_d)$ of a random vector $X = (X_1, \dots, X_d)$ can be written in terms of its marginal distributions $F_i(x_i) = P(X_i \le x_i)$ and a <strong>Copula</strong> function $C$:
+      </p>
+
+      <div class="formula-display">
+        $$H(x_1, x_2, \dots, x_d) = C\left(F_1(x_1), F_2(x_2), \dots, F_d(x_d)\right)$$
+      </div>
+
+      <div class="highlight-box">
+        <strong style="color: var(--accent-color); display: block; margin-bottom: 8px;">The Probability Integral Transform (PIT):</strong>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0; line-height: 1.6;">
+          For any continuous random variable $X_i$ with CDF $F_i$, the transformed variable $U_i = F_i(X_i)$ strictly follows a <strong>Uniform distribution on the interval $[0, 1]$</strong>. The copula $C(u_1, \dots, u_d)$ is, therefore, a multivariate joint distribution defined on the unit hypercube $[0, 1]^d$ whose marginals are perfectly uniform.
+        </p>
+      </div>
+
+      <h3>Application in Credit Risk</h3>
+      <p style="color: var(--text-secondary); line-height: 1.8;">
+        Sklar's Theorem gives us the freedom to independently fit the best marginal distribution for each customer attribute (e.g., testing Kolmogorov-Smirnov fit for Income) and then "glue" all variables together, preserving the dependency structure through the copula.
+      </p>
+    </article>
+
+    <article class="tutorial-card">
+      <h2>2. Gaussian Copulas and Correlation Injection</h2>
+
+      <h3>Definition and Mapping Space</h3>
+      <p style="color: var(--text-secondary); line-height: 1.8;">
+        The <strong>Gaussian Copula</strong> is constructed from the multivariate normal distribution. It acts as a bridge between the uniform space $[0, 1]^d$ and the standard normal space $\mathcal{N}(0, I)$.
+      </p>
+
+      <div class="formula-display">
+        $$C_R(u_1, u_2, \dots, u_d) = \Phi_R\left(\Phi^{-1}(u_1), \Phi^{-1}(u_2), \dots, \Phi^{-1}(u_d)\right)$$
+      </div>
+
+      <p style="color: var(--text-secondary); line-height: 1.8;">
+        Where:
+      </p>
+      <ul style="color: var(--text-secondary); line-height: 1.8; padding-left: 20px;">
+        <li>$\Phi^{-1}$: Is the quantile function (inverse CDF) of the Standard Univariate Normal $\mathcal{N}(0, 1)$.</li>
+        <li>$\Phi_R$: Is the Cumulative Distribution Function (CDF) of a Multivariate Normal with zero mean and correlation matrix $R \in \mathbb{R}^{d \times d}$.</li>
+        <li>$u_i \in [0, 1]$: Are the cumulative probabilities originating from the model's marginal distributions.</li>
+      </ul>
+
+      <h3>How Correlation is Preserved</h3>
+      <p style="color: var(--text-secondary); line-height: 1.8;">
+        The algorithm temporarily transforms the uniform data $u_i$ into normal quantiles $z_i = \Phi^{-1}(u_i)$. In the normal domain, the matrix $R$ imposes the linear Pearson correlation between the variables. When we convert these values back to the original domain of the credit variables, the monotonic Rank correlation (Spearman / Kendall) is consistently preserved.
+      </p>
+    </article>
+
+    <article class="tutorial-card">
+      <h2>3. Monte Carlo Simulation via Cholesky Decomposition</h2>
+
+      <h3>The Step-by-Step Sampling Algorithm</h3>
+      <p style="color: var(--text-secondary); line-height: 1.8;">
+        To generate $N$ rows of synthetic customer data while ensuring the dependency matrix $R$, we execute four chained steps:
+      </p>
+
+      <div style="margin: 20px 0;">
+        <ol style="color: var(--text-secondary); line-height: 1.9; padding-left: 20px;">
+          <li>
+            <strong>Independent Generation:</strong> We draw a $d$-dimensional random vector $\epsilon \sim \mathcal{N}(0, I)$, where each component is orthogonal and independent.
+          </li>
+          <li>
+            <strong>Cholesky Factorization:</strong> We decompose the symmetric and positive-definite correlation matrix $R$ into a lower triangular matrix $L$, such that $R = L \cdot L^T$.
+          </li>
+          <li>
+            <strong>Correlation Injection:</strong> We multiply the independent vector by the triangular matrix:
+            <div style="text-align: center; margin: 10px 0; color: var(--accent-color); font-weight: bold;">
+              $$Z = L \cdot \epsilon \quad \implies \quad \text{Var}(Z) = E[L\epsilon \epsilon^T L^T] = L \cdot I \cdot L^T = R$$
+            </div>
+          </li>
+          <li>
+            <strong>Uniform Transformation and Marginal Inversion:</strong> We map the correlated vector $Z$ to the uniform space $U = \Phi(Z)$ and apply the actual inverse CDFs $F_i^{-1}(U_i)$ to obtain the final values in the correct scale (Income, Score Points, etc.).
+          </li>
+        </ol>
+      </div>
+
+      <h3>Practical Python Implementation</h3>
+      <p style="color: var(--text-secondary); line-height: 1.8;">
+        Below is the complete script implementing the mathematical pipeline using <code>numpy</code> and <code>scipy.stats</code>:
+      </p>
+
+      <pre><code class="language-python">import numpy as np
+from scipy.stats import norm, lognorm, beta
+
+# 1. Define number of samples and Correlation Matrix R (Income x Score)
+N = 10000
+R = np.array([
+    [1.00,  0.55],  # Positive correlation between Income and Score
+    [0.55,  1.00]
+])
+
+# 2. Cholesky Decomposition
+L = np.linalg.cholesky(R)
+
+# 3. Generate independent Gaussian noise and apply correlation
+Z_indep = np.random.normal(size=(N, 2))
+Z_corr = Z_indep @ L.T
+
+# 4. Transform to Uniform [0, 1] via standard Normal CDF
+U = norm.cdf(Z_corr)
+
+# 5. Marginal Inversion for Real Credit Distributions
+# Income ~ Log-Normal (s=0.6, scale=exp(8.5) -> mean ~ 6,000)
+renda_sintetica = lognorm.ppf(U[:, 0], s=0.6, scale=np.exp(8.5))
+
+# Score ~ Beta (a=5, b=2 -> values between 0 and 1000)
+score_sintetico = beta.ppf(U[:, 1], a=5, b=2) * 1000
+
+print("Synthetic Dataset Successfully Generated!")
+print(f"Observed Correlation: {np.corrcoef(renda_sintetica, score_sintetico)[0,1]:.4f}")</code></pre>
+    </article>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 • Developed by Eneas Junior.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+</body>
+</html>

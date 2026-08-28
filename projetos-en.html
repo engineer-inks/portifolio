@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projetos | Machine Learning Engineer</title>
+  <title>Projects | Machine Learning Engineer</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -13,55 +13,56 @@
       <nav>
         <a href="index.html" class="logo">Eneas Junior</a>
         <ul class="nav-links">
-          <li><a href="home.html">Home</a></li>
-          <li><a href="projetos.html" class="active">Projetos</a></li>
-          <li><a href="tutoriais.html">Tutoriais</a></li>
-          <li><a href="sobre.html">Sobre Mim</a></li>
-          <li><a href="contato.html">Contato</a></li>
+          <li><a href="home-en.html">Home</a></li>
+          <li><a href="projetos-en.html" class="active">Projects</a></li>
+          <li><a href="showcase-en.html">Showcase</a></li>
+          <li><a href="tutoriais-en.html">Tutorials</a></li>
+          <li><a href="sobre-en.html">About Me</a></li>
+          <li><a href="contato-en.html">Contact</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <main class="container" style="padding: 60px 20px;">
-    <h1 style="font-size: 2.2rem; margin-bottom: 10px;">Projetos em Destaque</h1>
+    <h1 style="font-size: 2.2rem; margin-bottom: 10px;">Featured Projects</h1>
     <p style="color: var(--text-secondary); margin-bottom: 40px; max-width: 800px;">
-      Soluções focadas em inteligência financeira, engenharia de dados escalável e algoritmos avançados de Inteligência Artificial.
+      Solutions focused on financial intelligence, scalable data engineering, and advanced Artificial Intelligence algorithms.
     </p>
 
     <article class="card" style="margin-bottom: 40px; padding: 32px; border-top: 4px solid var(--accent-color);">
       <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
-        <h2 style="font-size: 1.6rem; color: var(--text-primary);">Motor de Risco & Dados Sintéticos IFRS9</h2>
+        <h2 style="font-size: 1.6rem; color: var(--text-primary);">IFRS 9 Risk Engine & Synthetic Data</h2>
         <span style="background-color: rgba(56, 189, 248, 0.1); color: var(--accent-color); padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--accent-color);">
           Credit Risk / Machine Learning
         </span>
       </div>
 
       <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 1.05rem;">
-        Arquitetura para geração de dados financeiros sintéticos mantendo estruturas de dependência complexas entre variáveis de crédito. A solução viabiliza o treinamento de modelos preditivos (PD, LGD, EAD) sem violação de dados sensíveis ou gargalos de amostragem histórica.
+        Architecture for generating synthetic financial data while preserving complex dependency structures between credit variables. This solution enables the training of predictive models (PD, LGD, EAD) without violating sensitive data privacy or facing historical sampling bottlenecks.
       </p>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 25px;">
         <div style="background-color: rgba(15, 23, 42, 0.6); padding: 16px; border-radius: 6px; border: 1px solid var(--border-color);">
-          <h4 style="color: var(--text-primary); margin-bottom: 8px;">Fundamentos Matemáticos</h4>
+          <h4 style="color: var(--text-primary); margin-bottom: 8px;">Mathematical Foundations</h4>
           <ul style="color: var(--text-secondary); font-size: 0.9rem; padding-left: 20px; line-height: 1.5;">
-            <li>Cópulas Gaussianas e matrizes de correlação</li>
-            <li>Teorema de Sklar para marginais não-paramétricas</li>
-            <li>Simulação de Monte Carlo com Decomposição de Cholesky</li>
+            <li>Gaussian Copulas and correlation matrices</li>
+            <li>Sklar's Theorem for non-parametric marginals</li>
+            <li>Monte Carlo Simulation via Cholesky Decomposition</li>
           </ul>
         </div>
         <div style="background-color: rgba(15, 23, 42, 0.6); padding: 16px; border-radius: 6px; border: 1px solid var(--border-color);">
-          <h4 style="color: var(--text-primary); margin-bottom: 8px;">Engenharia & Cloud</h4>
+          <h4 style="color: var(--text-primary); margin-bottom: 8px;">Data Engineering & Cloud</h4>
           <ul style="color: var(--text-secondary); font-size: 0.9rem; padding-left: 20px; line-height: 1.5;">
-            <li>Pipeline unificada em Python e PySpark (Lakehouse)</li>
-            <li>Dados estruturados no formato colunar (Parquet)</li>
-            <li>Pronto para integração Serverless em Nuvem</li>
+            <li>Unified pipeline in Python and PySpark (Lakehouse)</li>
+            <li>Structured data in columnar format (Parquet)</li>
+            <li>Ready for Cloud Serverless integration</li>
           </ul>
         </div>
       </div>
 
       <div style="background-color: #0f172a; padding: 15px; border-radius: 6px; margin-bottom: 25px; border: 1px solid #334155;">
-        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 8px;">Snippet rápido: Lendo a base sintética com PySpark</p>
+        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 8px;">Quick Snippet: Reading synthetic data with PySpark</p>
         <code style="color: #38bdf8; font-family: monospace; font-size: 0.9rem;">
           df = spark.read.parquet("synthetic_credit_data.parquet")<br>
           df.show(5)
@@ -69,16 +70,16 @@
       </div>
 
       <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 25px;">
-        <a href="showcase.html" class="btn btn-primary" style="font-size: 0.9rem;">
-          📊 Ver Presentation Deck / Showcase
+        <a href="showcase-en.html" class="btn btn-primary" style="font-size: 0.9rem;">
+          📊 View Presentation Deck / Showcase
         </a>
         
         <a href="https://eneas-data-ai-ifrs9.netlify.app" target="_blank" class="btn btn-secondary" style="font-size: 0.9rem; background-color: #2563eb; color: white; border-color: #2563eb;">
-          ⚙️ Configurador MLOps (App)
+          ⚙️ MLOps Configurator (App)
         </a>
 
         <a href="https://eneas-data-ai-ifrs9.netlify.app/dashboard_results.html" target="_blank" class="btn btn-secondary" style="font-size: 0.9rem; background-color: #0ea5e9; color: white; border-color: #0ea5e9;">
-          📈 Dashboard de Métricas
+          📈 Metrics Dashboard
         </a>
         
         <a href="https://github.com/engineer-inks/ifrs9-financial-computer-ai" target="_blank" class="btn btn-secondary" style="font-size: 0.9rem;">
@@ -89,18 +90,18 @@
 
     <article class="card" style="padding: 32px; border-top: 4px solid var(--accent-color);">
       <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
-        <h2 style="font-size: 1.6rem; color: var(--text-primary);">Arquiteturas NLP & Speech-to-Text</h2>
+        <h2 style="font-size: 1.6rem; color: var(--text-primary);">NLP & Speech-to-Text Architectures</h2>
         <span style="background-color: rgba(56, 189, 248, 0.1); color: var(--accent-color); padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--accent-color);">
-          IA Conversacional / Áudio
+          Conversational AI / Audio
         </span>
       </div>
 
       <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 1.05rem;">
-        Desenvolvimento de soluções de ingestão de mídia e transcrição automática em larga escala. Experiência consolidada na aplicação de Deep Learning para remoção de ruído, extração de entidades nomeadas (NER) e integração com LLMs para resumo de interações e extração de insights de negócios.
+        Development of media ingestion and large-scale automatic transcription solutions. Solid experience in applying Deep Learning for noise removal, Named Entity Recognition (NER), and integration with LLMs for interaction summarization and business insights extraction.
       </p>
 
       <p style="color: var(--text-secondary); font-size: 0.95rem;">
-        <em>Projetos aplicados em ambientes corporativos processando grandes volumes de dados não estruturados e pipelines de processamento distribuído.</em>
+        <em>Projects applied in corporate environments processing large volumes of unstructured data and distributed processing pipelines.</em>
       </p>
     </article>
 
@@ -108,7 +109,7 @@
 
   <footer>
     <div class="container">
-      <p>&copy; 2026 • Desenvolvido com foco em Engenharia e Ciência de Dados.</p>
+      <p>&copy; 2026 • Developed with a focus on Data Engineering and Data Science.</p>
     </div>
   </footer>
 
