@@ -18,26 +18,51 @@
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <style>
-    /* Estilo do Presentation Deck / Slide 16:9 */
-    .deck-container {
+    .deck-wrapper {
       max-width: 1000px;
       margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 50px;
     }
 
+    /* Controles Superiores do Slide Deck */
+    .deck-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 15px 25px;
+      margin-bottom: 25px;
+    }
+
+    .slide-counter {
+      font-weight: 700;
+      color: var(--accent-color);
+      font-size: 1.05rem;
+    }
+
+    /* Estrutura do Slide Individual (Estilo Pitch Deck 16:9) */
     .slide-deck-card {
+      display: none; /* Esconde por padrao, o JS exibe apenas o ativo */
       background: #1e293b;
       border: 1px solid var(--border-color);
       border-radius: 16px;
       padding: 50px;
       min-height: 520px;
-      display: flex;
       flex-direction: column;
       justify-content: space-between;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-      position: relative;
+      animation: fadeIn 0.3s ease-in-out;
+      overflow: hidden;
+    }
+
+    .slide-deck-card.active-slide {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .slide-header {
@@ -49,16 +74,6 @@
       margin-bottom: 25px;
     }
 
-    .slide-number {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--accent-color);
-      background-color: rgba(56, 189, 248, 0.1);
-      padding: 6px 14px;
-      border-radius: 20px;
-      border: 1px solid var(--accent-color);
-    }
-
     .slide-body {
       flex-grow: 1;
       display: flex;
@@ -66,22 +81,41 @@
       justify-content: center;
     }
 
+    /* Layout de Duas Colunas para Slides com Imagem */
+    .grid-2-image {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    /* Estilo das Imagens Graficas dentro dos Slides */
+    .slide-image-wrapper {
+      border: 5px solid #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+    .slide-image-wrapper img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      background-color: #ffffff;
+    }
+
+    /* Formula, Tiles, Charts, etc. */
     .formula-display {
       background-color: #0f172a;
       border: 1px solid var(--border-color);
       border-left: 4px solid var(--accent-color);
-      padding: 20px;
+      padding: 15px 20px;
       border-radius: 8px;
       text-align: center;
-      font-size: 1.3rem;
-      margin: 20px 0;
+      font-size: 1.1rem;
+      margin: 15px 0;
       color: #38bdf8;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
+      overflow-x: auto;
     }
 
     .grid-3 {
@@ -92,20 +126,18 @@
 
     .tile-box {
       background-color: rgba(15, 23, 42, 0.7);
-      padding: 24px;
+      padding: 20px;
       border-radius: 10px;
       border: 1px solid var(--border-color);
-      text-align: left;
     }
 
     .tile-box i {
-      font-size: 2rem;
+      font-size: 1.8rem;
       color: var(--accent-color);
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       display: block;
     }
 
-    /* Chart Rows */
     .bar-row {
       display: flex;
       align-items: center;
@@ -114,15 +146,15 @@
     }
     .bar-label {
       width: 160px;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: var(--text-secondary);
       text-align: right;
     }
     .bar-track {
       flex-grow: 1;
       background-color: #0f172a;
-      height: 32px;
-      border-radius: 16px;
+      height: 28px;
+      border-radius: 14px;
       overflow: hidden;
     }
     .bar-fill {
@@ -155,26 +187,32 @@
     </div>
   </header>
 
-  <main class="container" style="padding: 60px 20px;">
+  <main class="container" style="padding: 50px 20px;">
     
-    <div style="text-align: center; margin-bottom: 50px;">
-      <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Showcase de Projetos</h1>
-      <p style="color: var(--text-secondary); max-width: 800px; margin: 0 auto; font-size: 1.1rem;">
-        Pitch Deck Executivo & Tecnico: Soluçoes escalaveis integrando rigor matematico, engenharia de dados e IA.
+    <div style="text-align: center; margin-bottom: 30px;">
+      <h1 style="font-size: 2.2rem; margin-bottom: 8px;">Showcase de Projetos</h1>
+      <p style="color: var(--text-secondary); font-size: 1rem;">
+        Pitch Deck Interativo: Use os botoes ou as setas do teclado (← / →) para navegar.
       </p>
     </div>
 
-    <div class="deck-container">
+    <div class="deck-wrapper">
 
-      <div class="slide-deck-card">
+      <div class="deck-controls">
+        <button id="prevBtn" class="btn btn-secondary" onclick="changeSlide(-1)">&larr; Anterior</button>
+        <span id="slideCounter" class="slide-counter">Slide 1 de 12</span>
+        <button id="nextBtn" class="btn btn-primary" onclick="changeSlide(1)">Proximo &rarr;</button>
+      </div>
+
+      <div class="slide-deck-card active-slide">
         <div class="slide-header">
-          <h3 style="color: var(--text-primary); font-size: 1.2rem;">Apresentaçao Executiva</h3>
-          <span class="slide-number">Slide 01 / 12</span>
+          <h3 style="color: var(--text-primary); font-size: 1rem;">Apresentaçao Executiva</h3>
+          <span style="color: var(--accent-color); font-weight: 600;">01 / 12</span>
         </div>
         <div class="slide-body" style="text-align: center;">
           <h1 style="font-size: 2.8rem; color: var(--accent-color); margin-bottom: 15px;">Showcase de Projetos</h1>
           <p style="font-size: 1.3rem; color: var(--text-primary); margin-bottom: 25px;">Eneas Junior | Machine Learning Engineer & Data Scientist</p>
-          <p style="color: var(--text-secondary); max-width: 750px; margin: 0 auto;">
+          <p style="color: var(--text-secondary); max-width: 750px; margin: 0 auto; line-height: 1.8;">
             Soluçoes escalaveis integrando rigor matematico, engenharia de dados em nuvem e inteligencia de risco para o mercado financeiro.
           </p>
         </div>
@@ -182,13 +220,13 @@
 
       <div class="slide-deck-card">
         <div class="slide-header">
-          <h3 style="color: var(--text-primary); font-size: 1.2rem;">Foco de Atuaçao</h3>
-          <span class="slide-number">Slide 02 / 12</span>
+          <h3 style="color: var(--text-primary); font-size: 1rem;">Foco de Atuaçao</h3>
+          <span style="color: var(--accent-color); font-weight: 600;">02 / 12</span>
         </div>
         <div class="slide-body" style="text-align: center;">
           <i class="fa-solid fa-chart-line" style="font-size: 3.5rem; color: var(--accent-color); margin-bottom: 20px;"></i>
           <h2 style="font-size: 2.2rem; color: var(--text-primary); margin-bottom: 15px;">Foco: Risco de Crédito</h2>
-          <p style="color: var(--text-secondary); font-size: 1.1rem; max-width: 700px; margin: 0 auto;">
+          <p style="color: var(--text-secondary); font-size: 1.1rem; max-width: 700px; margin: 0 auto; line-height: 1.8;">
             Arquitetura de Dados Sinteticos e Modelagem IFRS9. Mitigaçao da escassez de dados historicos de default atraves de modelagem generativa avançada.
           </p>
         </div>
@@ -196,24 +234,24 @@
 
       <div class="slide-deck-card">
         <div class="slide-header">
-          <h3 style="color: var(--text-primary); font-size: 1.2rem;">Problema vs Soluçao</h3>
-          <span class="slide-number">Slide 03 / 12</span>
+          <h3 style="color: var(--text-primary); font-size: 1rem;">Problema vs Soluçao</h3>
+          <span style="color: var(--accent-color); font-weight: 600;">03 / 12</span>
         </div>
         <div class="slide-body">
           <h2 style="color: var(--accent-color); margin-bottom: 25px;">Motor de Risco IFRS9</h2>
-          <div class="grid-2">
+          <div class="grid-2-image">
             <div class="tile-box">
               <i class="fa-solid fa-triangle-exclamation"></i>
               <h3 style="color: var(--text-primary); margin-bottom: 10px;">O Problema</h3>
-              <p style="color: var(--text-secondary); font-size: 0.95rem;">
+              <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
                 O treinamento de modelos IFRS9 (PD, LGD, EAD) exige bases massivas, muitas vezes limitadas por Questoes de privacidade (LGPD) ou escassez de dados de default.
               </p>
             </div>
             <div class="tile-box">
               <i class="fa-solid fa-circle-check"></i>
               <h3 style="color: var(--text-primary); margin-bottom: 10px;">A Soluçao</h3>
-              <p style="color: var(--text-secondary); font-size: 0.95rem;">
-                Desenvolvimento de um gerador sintético utilizando Cópulas Gaussianas e Simulaçao de Monte Carlo para criar perfis com preservaçao de dependência nao-linear.
+              <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+                Desenvolvimento de um gerador sintetico utilizando Cópulas Gaussianas e Simulaçao de Monte Carlo para criar perfis com preservaçao de dependência nao-linear.
               </p>
             </div>
           </div>
@@ -222,73 +260,71 @@
 
       <div class="slide-deck-card">
         <div class="slide-header">
-          <h3 style="color: var(--text-primary); font-size: 1.2rem;">Fundamento Financeiro</h3>
-          <span class="slide-number">Slide 04 / 12</span>
+          <h3 style="color: var(--text-primary); font-size: 1rem;">Fundamento Financeiro</h3>
+          <span style="color: var(--accent-color); font-weight: 600;">04 / 12</span>
         </div>
-        <div class="slide-body">
-          <h2 style="color: var(--accent-color); margin-bottom: 15px;">Expected Loss (Perda Esperada)</h2>
-          <p style="color: var(--text-secondary); margin-bottom: 10px;">
-            O pilar do risco de credito moderno sob o arcabouço IFRS9:
-          </p>
-          <div class="formula-display">
-            $$EL = PD \times LGD \times EAD$$
+        <div class="slide-body grid-2-image">
+          <div>
+            <h2 style="color: var(--accent-color); margin-bottom: 15px;">Expected Loss (Perda Esperada)</h2>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
+              O pilar do risco de credito moderno sob o arcabouço IFRS9. A modelagem atende à equaçao de provisao bancária:
+            </p>
+            <div class="formula-display">
+              $$EL = PD \times LGD \times EAD$$
+            </div>
           </div>
-          <div class="grid-3" style="margin-top: 20px;">
-            <div class="tile-box">
-              <strong style="color: var(--accent-color);">PD:</strong> Probabilidade de Default
-            </div>
-            <div class="tile-box">
-              <strong style="color: var(--accent-color);">LGD:</strong> Perda Dado o Default
-            </div>
-            <div class="tile-box">
-              <strong style="color: var(--accent-color);">EAD:</strong> Exposiçao no Default
-            </div>
+          <div class="slide-image-wrapper">
+            <img src="img/slides/el_components.png" alt="Componentes do Expected Loss (Diagrama)">
           </div>
         </div>
       </div>
 
       <div class="slide-deck-card">
         <div class="slide-header">
-          <h3 style="color: var(--text-primary); font-size: 1.2rem;">Teoria Estatística</h3>
-          <span class="slide-number">Slide 05 / 12</span>
+          <h3 style="color: var(--text-primary); font-size: 1rem;">Teoria Estatística</h3>
+          <span style="color: var(--accent-color); font-weight: 600;">05 / 12</span>
         </div>
-        <div class="slide-body">
-          <h2 style="color: var(--accent-color); margin-bottom: 15px;">Teorema de Sklar</h2>
-          <p style="color: var(--text-secondary);">
-            A "chave mestre" que permite separar as distribuiçoes individuais (marginais) da estrutura de correlaçao conjunta:
-          </p>
-          <div class="formula-display">
-            $$H(x_1, \dots, x_d) = C(F_1(x_1), \dots, F_d(x_d))$$
+        <div class="slide-body grid-2-image">
+          <div>
+            <h2 style="color: var(--accent-color); margin-bottom: 15px;">Teorema de Sklar</h2>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
+              A "chave mestre" que permite separar as distribuiçoes individuais das variaveis da sua estrutura conjunta:
+            </p>
+            <div class="formula-display">
+              $$H(x_1, \dots, x_d) = C(F_1(x_1), \dots, F_d(x_d))$$
+            </div>
           </div>
-          <p style="color: var(--text-secondary); font-size: 0.95rem;">
-            Isso permite modelar a Renda como Log-Normal e o Score como Beta, unindo-os uniformemente via Copula.
-          </p>
+          <div class="slide-image-wrapper">
+            <img src="img/slides/sklar_viz.png" alt="Visualizaçao matematica do Teorema de Sklar">
+          </div>
         </div>
       </div>
 
       <div class="slide-deck-card">
         <div class="slide-header">
-          <h3 style="color: var(--text-primary); font-size: 1.2rem;">Modelagem de Dependência</h3>
-          <span class="slide-number">Slide 06 / 12</span>
+          <h3 style="color: var(--text-primary); font-size: 1rem;">Modelagem de Dependencia</h3>
+          <span style="color: var(--accent-color); font-weight: 600;">06 / 12</span>
         </div>
-        <div class="slide-body">
-          <h2 style="color: var(--accent-color); margin-bottom: 15px;">Cópulas Gaussianas</h2>
-          <p style="color: var(--text-secondary);">
-            Mapeia variaveis uniformes para o espaço normal multivariado, injetando a matriz de correlaçao $R$:
-          </p>
-          <div class="formula-display">
-            $$C_R(u_1, \dots, u_d) = \Phi_R(\Phi^{-1}(u_1), \dots, \Phi^{-1}(u_d))$$
+        <div class="slide-body grid-2-image">
+          <div>
+            <h2 style="color: var(--accent-color); margin-bottom: 15px;">Cópulas Gaussianas</h2>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
+              Mapeia variaveis uniformes para o espaço normal multivariado, injetando a matriz de correlaçao $R$:
+            </p>
+            <div class="formula-display">
+              $$C_R(u_1, \dots, u_d) = \Phi_R(\Phi^{-1}(u_1), \dots, \Phi^{-1}(u_d))$$
+            </div>
           </div>
-          <p style="color: var(--text-secondary); font-size: 0.95rem;">
-            Essencial para simular como quedas na renda elevam a probabilidade de default em testes de estresse.
-          </p>
+          <div class="slide-image-wrapper">
+            <img src="img/slides/copula_density.png" alt="Grafico de densidade de Cópula Gaussiana">
+          </div>
         </div>
       </div>
 
       <div class="slide-deck-card">
         <div class="slide-header">
-          <h3 style="color: var(--text-primary); font-size: 1.2rem;">Algoritmo Generativo</h3>
-          <span class="slide-number">Slide 07 / 12</span>
+          <h3 style="color: var(--text-primary); font-size: 1rem;">Algoritmo Generativo</h3>
+          <span style="color: var(--accent-color); font-weight: 600;">07 / 12</span>
         </div>
         <div class="slide-body">
           <h2 style="color: var(--accent-color); margin-bottom: 25px;">Processo de Monte Carlo</h2>
@@ -314,8 +350,8 @@
 
       <div class="slide-deck-card">
         <div class="slide-header">
-          <h3 style="color: var(--text-primary); font-size: 1.2rem;">Métricas de Desempenho</h3>
-          <span class="slide-number">Slide 08 / 12</span>
+          <h3 style="color: var(--text-primary); font-size: 1rem;">Métricas de Desempenho</h3>
+          <span style="color: var(--accent-color); font-weight: 600;">08 / 12</span>
         </div>
         <div class="slide-body">
           <h2 style="color: var(--accent-color); margin-bottom: 25px;">Performance do Modelo PD (AUC)</h2>
@@ -338,38 +374,31 @@
 
       <div class="slide-deck-card">
         <div class="slide-header">
-          <h3 style="color: var(--text-primary); font-size: 1.2rem;">Processamento de Voz & Texto</h3>
-          <span class="slide-number">Slide 09 / 12</span>
+          <h3 style="color: var(--text-primary); font-size: 1rem;">Processamento de Voz & Texto</h3>
+          <span style="color: var(--accent-color); font-weight: 600;">09 / 12</span>
         </div>
-        <div class="slide-body">
-          <h2 style="color: var(--accent-color); margin-bottom: 20px;">IA Conversacional & Speech-to-Text</h2>
-          <p style="color: var(--text-secondary); margin-bottom: 20px;">
-            Informaçao nao-estruturada transformada em inteligencia operacional.
-          </p>
-          <div class="grid-3">
-            <div class="tile-box">
-              <i class="fa-solid fa-microphone-slash"></i>
-              <h4 style="color: var(--text-primary); margin-bottom: 5px;">Reduçao de Ruído</h4>
-              <p style="font-size: 0.85rem; color: var(--text-secondary);">Deep Learning para áudio limpo</p>
-            </div>
-            <div class="tile-box">
-              <i class="fa-solid fa-font"></i>
-              <h4 style="color: var(--text-primary); margin-bottom: 5px;">NER & NLP</h4>
-              <p style="font-size: 0.85rem; color: var(--text-secondary);">Extraçao de entidades e intençoes</p>
-            </div>
-            <div class="tile-box">
-              <i class="fa-solid fa-robot"></i>
-              <h4 style="color: var(--text-primary); margin-bottom: 5px;">LLMs & GenAI</h4>
-              <p style="font-size: 0.85rem; color: var(--text-secondary);">Sumarizaçao de dialogos via Gemini</p>
-            </div>
+        <div class="slide-body grid-2-image">
+          <div style="text-align: center; border: 5px solid var(--accent-color); border-radius: 50%; width: 300px; height: 300px; overflow: hidden; margin: 0 auto;">
+            <img src="img/slides/ai_audio.png" alt="IA Conversacional e Audio (Imagem Circular)" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div>
+            <h2 style="color: var(--accent-color); margin-bottom: 20px;">IA Conversacional & Speech-to-Text</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 0.95rem;">
+              Informaçao nao-estruturada transformada em inteligencia operacional.
+            </p>
+            <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; padding-left: 20px;">
+              <li>Remoçao de ruído via Deep Learning</li>
+              <li>Extraçao de entidades (NER) e intençoes</li>
+              <li>LLMs (Gemini/GPT) para sumarizaçao</li>
+            </ul>
           </div>
         </div>
       </div>
 
       <div class="slide-deck-card">
         <div class="slide-header">
-          <h3 style="color: var(--text-primary); font-size: 1.2rem;">Presença de Mercado</h3>
-          <span class="slide-number">Slide 10 / 12</span>
+          <h3 style="color: var(--text-primary); font-size: 1rem;">Presença de Mercado</h3>
+          <span style="color: var(--accent-color); font-weight: 600;">10 / 12</span>
         </div>
         <div class="slide-body">
           <h2 style="color: var(--accent-color); margin-bottom: 25px;">Experiência & Marcas</h2>
@@ -395,21 +424,26 @@
 
       <div class="slide-deck-card">
         <div class="slide-header">
-          <h3 style="color: var(--text-primary); font-size: 1.2rem;">Infraestrutura</h3>
-          <span class="slide-number">Slide 11 / 12</span>
+          <h3 style="color: var(--text-primary); font-size: 1rem;">Infraestrutura</h3>
+          <span style="color: var(--accent-color); font-weight: 600;">11 / 12</span>
         </div>
-        <div class="slide-body">
-          <h2 style="color: var(--accent-color); margin-bottom: 20px;">Arquitetura Cloud ML</h2>
-          <p style="color: var(--text-secondary); font-size: 1.05rem; line-height: 1.8;">
-            Escalabilidade nativa no <strong>Google Cloud Platform (GCP)</strong> e <strong>AWS</strong>. Implementaçao de esteiras de CI/CD para modelos via Cloud Run, processamento distribuido em larga escala (BigQuery/PySpark) e orquestraçao em produçao via Kubernetes.
-          </p>
+        <div class="slide-body grid-2-image">
+          <div>
+            <h2 style="color: var(--accent-color); margin-bottom: 20px;">Arquitetura Cloud ML</h2>
+            <p style="color: var(--text-secondary); font-size: 1.05rem; line-height: 1.8;">
+              Escalabilidade nativa no <strong>Google Cloud Platform (GCP)</strong> e <strong>AWS</strong>. Implementaçao de esteiras de CI/CD para modelos via Cloud Run, processamento distribuido (PySpark) e orquestraçao via Kubernetes.
+            </p>
+          </div>
+          <div class="slide-image-wrapper">
+            <img src="img/slides/cloud_ml_architecture.png" alt="Arquitetura Cloud ML Escalavel">
+          </div>
         </div>
       </div>
 
-      <div class="slide-deck-card" style="border-bottom: 4px solid var(--accent-color);">
+      <div class="slide-deck-card">
         <div class="slide-header">
-          <h3 style="color: var(--text-primary); font-size: 1.2rem;">Encerramento</h3>
-          <span class="slide-number">Slide 12 / 12</span>
+          <h3 style="color: var(--text-primary); font-size: 1rem;">Encerramento</h3>
+          <span style="color: var(--accent-color); font-weight: 600;">12 / 12</span>
         </div>
         <div class="slide-body" style="text-align: center;">
           <h2 style="font-size: 2.5rem; color: var(--text-primary); margin-bottom: 15px;">Vamos construir o futuro?</h2>
@@ -429,6 +463,53 @@
       <p>&copy; 2026 • Desenvolvido por Eneas Junior.</p>
     </div>
   </footer>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide-deck-card');
+    const totalSlides = slides.length;
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slideCounter = document.getElementById('slideCounter');
+
+    function updateSlide() {
+      slides.forEach((slide, index) => {
+        if (index === currentSlide) {
+          slide.classList.add('active-slide');
+        } else {
+          slide.classList.remove('active-slide');
+        }
+      });
+
+      slideCounter.textContent = `Slide ${currentSlide + 1} de ${totalSlides}`;
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === totalSlides - 1;
+
+      // Re-executa o MathJax se necessario para garantir a renderizaçao
+      if (window.MathJax && MathJax.typesetPromise) {
+        MathJax.typesetPromise([slides[currentSlide]]);
+      }
+    }
+
+    function changeSlide(direction) {
+      currentSlide += direction;
+      if (currentSlide < 0) currentSlide = 0;
+      if (currentSlide >= totalSlides) currentSlide = totalSlides - 1;
+      updateSlide();
+    }
+
+    // Suporte às setas do teclado (Esquerda / Direita)
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'ArrowRight') {
+        if (currentSlide < totalSlides - 1) changeSlide(1);
+      } else if (event.key === 'ArrowLeft') {
+        if (currentSlide > 0) changeSlide(-1);
+      }
+    });
+
+    // Inicializa
+    updateSlide();
+  </script>
 
 </body>
 </html>
