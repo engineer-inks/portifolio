@@ -3,12 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tutoriais Matemáticos | Machine Learning Engineer</title>
+  <title>Tutoriais Matemáticos | Eneas Junior</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+  <style>
+    .tutorial-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 35px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    .tutorial-card h2 {
+      color: var(--accent-color);
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+    }
+    .tutorial-card h3 {
+      color: var(--text-primary);
+      font-size: 1.2rem;
+      margin: 20px 0 10px 0;
+    }
+    .formula-display {
+      background-color: #0f172a;
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--accent-color);
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1.2rem;
+      margin: 20px 0;
+      color: #38bdf8;
+      overflow-x: auto;
+    }
+    .highlight-box {
+      background-color: rgba(56, 189, 248, 0.05);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    pre[class*="language-"] {
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      margin: 20px 0;
+      background: #0f172a !important;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
 
@@ -19,6 +77,7 @@
         <ul class="nav-links">
           <li><a href="index.html">Home</a></li>
           <li><a href="projetos.html">Projetos</a></li>
+          <li><a href="showcase.html">Showcase</a></li>
           <li><a href="tutoriais.html" class="active">Tutoriais</a></li>
           <li><a href="sobre.html">Sobre Mim</a></li>
           <li><a href="contato.html">Contato</a></li>
@@ -28,57 +87,148 @@
   </header>
 
   <main class="container" style="padding: 60px 20px;">
-    <h1 style="font-size: 2.2rem; margin-bottom: 10px;">Fundamentos Matemáticos</h1>
-    <p style="color: var(--text-secondary); margin-bottom: 40px; max-width: 800px;">
-      Documentação teórica e conceitos estatísticos aplicados à modelagem de risco de crédito e geração de dados sintéticos.
-    </p>
-
-    <article class="card" style="margin-bottom: 30px; padding: 28px;">
-      <h2 style="color: var(--accent-color); font-size: 1.4rem; margin-bottom: 12px;">1. Teorema de Sklar (1959)</h2>
-      <p style="color: var(--text-secondary); margin-bottom: 15px;">
-        O Teorema de Sklar estabelece que qualquer função de distribuição acumulada conjunta multivariada $H$ pode ser expressa em termos de suas distribuições marginais $F_i$ e de uma função cópula $C$:
+    
+    <div style="margin-bottom: 50px;">
+      <h1 style="font-size: 2.3rem; margin-bottom: 10px;">Tutoriais Matemáticos & Estatísticos</h1>
+      <p style="color: var(--text-secondary); max-width: 850px; font-size: 1.1rem; line-height: 1.7;">
+        Fundamentação teórica detalhada e guia prático sobre a engenharia de dados sintéticos, teoria das cópulas e amostragem de Monte Carlo aplicadas ao Risco de Crédito (IFRS9).
       </p>
-      <div style="background-color: rgba(15, 23, 42, 0.8); padding: 15px; border-radius: 6px; border: 1px solid var(--border-color); text-align: center; font-size: 1.1rem; margin-bottom: 15px;">
-        $$H(x_1, \dots, x_d) = C(F_1(x_1), \dots, F_d(x_d))$$
+    </div>
+
+    <article class="tutorial-card">
+      <h2>1. Teorema de Sklar (1959) e Decomposição Marginal</h2>
+      
+      <h3>O Desafio em Dados Financeiros</h3>
+      <p style="color: var(--text-secondary); line-height: 1.8;">
+        Na modelagem bancária tradicional, deparamo-nos com variáveis que seguem famílias de distribuições completamente heterogêneas. A <strong>Renda</strong> possui cauda longa assimétrica à direita (modelada por uma distribuição Log-Normal ou Pareto), o <strong>Score de Crédito</strong> é confinado entre limites (modelado por uma distribuição Beta ou Normal Truncada), e a <strong>Taxa de Utilização de Limite</strong> concentra-se perto dos extremos.
+      </p>
+      <p style="color: var(--text-secondary); line-height: 1.8; margin-top: 10px;">
+        Tentar modelar essa massa de dados através de uma distribuição Normal Multivariada padrão falha gravemente, pois distorce as assimetrias individuais das variáveis. É exatamente aqui que entra o <strong>Teorema de Sklar</strong>.
+      </p>
+
+      <h3>A Formulação Matemática</h3>
+      <p style="color: var(--text-secondary); line-height: 1.8;">
+        Proposto por Abe Sklar em 1959, o teorema estabelece que qualquer Função de Distribuição Acumulada (CDF) conjunta multivariada $H(x_1, \dots, x_d)$ de um vetor aleatório $X = (X_1, \dots, X_d)$ pode ser escrita em termos de suas distribuições marginais $F_i(x_i) = P(X_i \le x_i)$ e de uma função <strong>Cópula</strong> $C$:
+      </p>
+
+      <div class="formula-display">
+        $$H(x_1, x_2, \dots, x_d) = C\left(F_1(x_1), F_2(x_2), \dots, F_d(x_d)\right)$$
       </div>
-      <p style="color: var(--text-secondary); font-size: 0.95rem;">
-        <strong>Aplicação em Risco:</strong> Permite isolar a modelagem individual das variáveis (ex: Renda com distribuição Log-Normal e Score com distribuição Beta) da estrutura de dependência entre elas.
+
+      <div class="highlight-box">
+        <strong style="color: var(--accent-color); display: block; margin-bottom: 8px;">A Transformada do Integral de Probabilidade (PIT):</strong>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0; line-height: 1.6;">
+          Para qualquer variável aleatória contínua $X_i$ com CDF $F_i$, a variável transformada $U_i = F_i(X_i)$ segue estritamente uma distribuição <strong>Uniforme no intervalo $[0, 1]$</strong>. A cópula $C(u_1, \dots, u_d)$ é, portanto, uma distribuição conjunta multivariada definida no hipercubo unitário $[0, 1]^d$ cujas marginais são perfeitamente uniformes.
+        </p>
+      </div>
+
+      <h3>Aplicação em Risco de Crédito</h3>
+      <p style="color: var(--text-secondary); line-height: 1.8;">
+        O Teorema de Sklar nos dá a liberdade de ajustar de forma independente a melhor distribuição marginal para cada atributo do cliente (ex: testar ajustamento Kolmogorov-Smirnov para a Renda) e, posteriormente, "colar" todas as variáveis preservando a estrutura de dependência através da cópula.
       </p>
     </article>
 
-    <article class="card" style="margin-bottom: 30px; padding: 28px;">
-      <h2 style="color: var(--accent-color); font-size: 1.4rem; margin-bottom: 12px;">2. Cópula Gaussiana</h2>
-      <p style="color: var(--text-secondary); margin-bottom: 15px;">
-        A Cópula Gaussiana utiliza a distribuição normal multivariada para mapear e injetar estruturas de correlação linear (Matriz de Pearson $R$) em variáveis de distribuições arbitrárias:
+    <article class="tutorial-card">
+      <h2>2. Cópulas Gaussianas e a Injeção de Correlação</h2>
+
+      <h3>Definição e Espaço de Mapeamento</h3>
+      <p style="color: var(--text-secondary); line-height: 1.8;">
+        A <strong>Cópula Gaussiana</strong> é construída a partir da distribuição normal multivariada. Ela atua como uma ponte entre o espaço uniforme $[0, 1]^d$ e o espaço normal padrão $\mathcal{N}(0, I)$.
       </p>
-      <div style="background-color: rgba(15, 23, 42, 0.8); padding: 15px; border-radius: 6px; border: 1px solid var(--border-color); text-align: center; font-size: 1.1rem; margin-bottom: 15px;">
-        $$C_R(u_1, \dots, u_d) = \Phi_R(\Phi^{-1}(u_1), \dots, \Phi^{-1}(u_d))$$
+
+      <div class="formula-display">
+        $$C_R(u_1, u_2, \dots, u_d) = \Phi_R\left(\Phi^{-1}(u_1), \Phi^{-1}(u_2), \dots, \Phi^{-1}(u_d)\right)$$
       </div>
-      <p style="color: var(--text-secondary); font-size: 0.95rem;">
-        Onde $\Phi^{-1}$ é a inversa da CDF normal padrão e $\Phi_R$ é a distribuição normal multivariada conjunta com matriz de correlação $R$.
+
+      <p style="color: var(--text-secondary); line-height: 1.8;">
+        Onde:
+      </p>
+      <ul style="color: var(--text-secondary); line-height: 1.8; padding-left: 20px;">
+        <li>$\Phi^{-1}$: É a função quantil (inversa da CDF) da Normal Padrão Univariada $\mathcal{N}(0, 1)$.</li>
+        <li>$\Phi_R$: É a Função de Distribuição Acumulada (CDF) de uma Normal Multivariada de média zero e matriz de correlação $R \in \mathbb{R}^{d \times d}$.</li>
+        <li>$u_i \in [0, 1]$: São as probabilidades acumuladas provenientes das distribuições marginais do modelo.</li>
+      </ul>
+
+      <h3>Como a Correlação é Preservada</h3>
+      <p style="color: var(--text-secondary); line-height: 1.8;">
+        O algoritmo transforma temporariamente os dados uniformes $u_i$ em quantis normais $z_i = \Phi^{-1}(u_i)$. No domínio normal, a matriz $R$ impõe a correlação de Pearson linear entre as variáveis. Quando convertemos esses valores de volta para o domínio original das variáveis de crédito, a correlação monotônica de Rank (Spearman / Kendall) é preservada de forma consistente.
       </p>
     </article>
 
-    <article class="card" style="margin-bottom: 30px; padding: 28px;">
-      <h2 style="color: var(--accent-color); font-size: 1.4rem; margin-bottom: 12px;">3. Algoritmo de Monte Carlo via Decomposição de Cholesky</h2>
-      <p style="color: var(--text-secondary); margin-bottom: 15px;">
-        Etapas para a amostragem de dados sintéticos correlacionados:
+    <article class="tutorial-card">
+      <h2>3. Simulação de Monte Carlo via Decomposição de Cholesky</h2>
+
+      <h3>O Algoritmo de Amostragem Passo a Passo</h3>
+      <p style="color: var(--text-secondary); line-height: 1.8;">
+        Para gerar $N$ linhas de dados sintéticos de clientes garantindo a matriz de dependência $R$, executamos quatro etapas encadeadas:
       </p>
-      <ol style="color: var(--text-secondary); font-size: 0.95rem; padding-left: 20px; line-height: 1.8;">
-        <li>Geração de vetor aleatório independente: $\epsilon \sim \mathcal{N}(0, I)$.</li>
-        <li>Fatoração da matriz de correlação $R = L \cdot L^T$ via Decomposição de Cholesky.</li>
-        <li>Injeção de dependência: $Z = L \cdot \epsilon$.</li>
-        <li>Transformação para o espaço uniforme $U_i = \Phi(Z_i)$ e aplicação da transformada inversa $X_i = F_i^{-1}(U_i)$.</li>
-      </ol>
+
+      <div style="margin: 20px 0;">
+        <ol style="color: var(--text-secondary); line-height: 1.9; padding-left: 20px;">
+          <li>
+            <strong>Geração Independente:</strong> Sorteamos um vetor de números aleatórios $d$-dimensional $\epsilon \sim \mathcal{N}(0, I)$, onde cada componente é ortogonal e independente.
+          </li>
+          <li>
+            <strong>Fatoração de Cholesky:</strong> Decompomos a matriz de correlação simétrica e positiva definida $R$ em uma matriz triangular inferior $L$, tal que $R = L \cdot L^T$.
+          </li>
+          <li>
+            <strong>Injeção de Correlação:</strong> Multiplicamos o vetor independente pela matriz triangular:
+            <div style="text-align: center; margin: 10px 0; color: var(--accent-color); font-weight: bold;">
+              $$Z = L \cdot \epsilon \quad \implies \quad \text{Var}(Z) = E[L\epsilon \epsilon^T L^T] = L \cdot I \cdot L^T = R$$
+            </div>
+          </li>
+          <li>
+            <strong>Transformação Uniforme e Inversão Marginal:</strong> Mapeamos o vetor correlacionado $Z$ para o espaço uniforme $U = \Phi(Z)$ e aplicamos as CDFs inversas reais $F_i^{-1}(U_i)$ para obter os valores finais na escala correta (R$ de Renda, Pontos de Score, etc.).
+          </li>
+        </ol>
+      </div>
+
+      <h3>Implementação Prática em Python</h3>
+      <p style="color: var(--text-secondary); line-height: 1.8;">
+        Abaixo está o script completo que implementa o pipeline matemático utilizando <code>numpy</code> e <code>scipy.stats</code>:
+      </p>
+
+      <pre><code class="language-python">import numpy as np
+from scipy.stats import norm, lognorm, beta
+
+# 1. Definir número de amostras e Matriz de Correlação R (Renda x Score)
+N = 10000
+R = np.array([
+    [1.00,  0.55],  # Correlação positiva entre Renda e Score
+    [0.55,  1.00]
+])
+
+# 2. Decomposição de Cholesky
+L = np.linalg.cholesky(R)
+
+# 3. Gerar ruído Gaussiano independente e aplicar correlação
+Z_indep = np.random.normal(size=(N, 2))
+Z_corr = Z_indep @ L.T
+
+# 4. Transformar para Uniforme [0, 1] via CDF Normal padrão
+U = norm.cdf(Z_corr)
+
+# 5. Inversão Marginal para as Distribuições Reais de Crédito
+# Renda ~ Log-Normal (s=0.6, scale=exp(8.5) -> média ~ R$ 6.000)
+renda_sintetica = lognorm.ppf(U[:, 0], s=0.6, scale=np.exp(8.5))
+
+# Score ~ Beta (a=5, b=2 -> valores entre 0 e 1000)
+score_sintetico = beta.ppf(U[:, 1], a=5, b=2) * 1000
+
+print("Base Sintética Gerada com Sucesso!")
+print(f"Correlação Observada: {np.corrcoef(renda_sintetica, score_sintetico)[0,1]:.4f}")</code></pre>
     </article>
 
   </main>
 
   <footer>
     <div class="container">
-      <p>&copy; 2026 • Desenvolvido com foco em Engenharia e Ciência de Dados.</p>
+      <p>&copy; 2026 • Desenvolvido por Eneas Junior.</p>
     </div>
   </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 
 </body>
 </html>
